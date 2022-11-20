@@ -18,19 +18,19 @@ public class Task3 {
 
         HttpResponse<String> response =
                 CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-        String test = response.body().substring(1, response.body().length()-1);
+        String test = response.body().substring(1, response.body().length() - 1);
         ArrayList<String> result = new ArrayList<>();
         while (test.length() > 1) {
             int st = test.indexOf('{');
             int a = test.indexOf('}');
 
-            String s = test.substring(st, a+1);
+            String s = test.substring(st, a + 1);
             int b = s.indexOf("\"completed\": ");
-            int c = s.indexOf('\n', b+13);
-            if (s.substring(b+13, c).equals("true")) {
+            int c = s.indexOf('\n', b + 13);
+            if (s.substring(b + 13, c).equals("true")) {
                 result.add(s);
             }
-            test = test.substring(a+1);
+            test = test.substring(a + 1);
         }
         System.out.println(result);
     }

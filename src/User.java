@@ -161,7 +161,6 @@ public class User {
         return result;
     }
 
-    // красивый предпросмотр, как на сайте
     @Override
     public String toString() {
         return "{\n" +
@@ -189,7 +188,7 @@ public class User {
                 "}";
     }
 
-    public static User defaultUser() { // создаст дефолтный экземпляр Объекта Пользователь (Сергей)
+    public static User defaultUser() {
         User result = new User();
         result.setId(8);
         result.setName("User");

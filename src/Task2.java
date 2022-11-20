@@ -21,19 +21,19 @@ public class Task2 {
         HttpResponse<String> response =
                 CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
 
-        String test = response.body().substring(1, response.body().length()-1);
+        String test = response.body().substring(1, response.body().length() - 1);
         ArrayList<Integer> result = new ArrayList<>();
         while (test.length() > 1) {
             int st = test.indexOf('{');
             int a = test.indexOf('}');
-            String s = test.substring(st, a+1);
+            String s = test.substring(st, a + 1);
             int b = s.indexOf("\"id\": ");
-            int c = s.indexOf(',', b+6);
-            result.add(Integer.parseInt(s.substring(b+6, c)));
-            test = test.substring(a+1);
+            int c = s.indexOf(',', b + 6);
+            result.add(Integer.parseInt(s.substring(b + 6, c)));
+            test = test.substring(a + 1);
         }
         int maxIdPost = 0;
-        for (Integer d:result) {
+        for (Integer d : result) {
             if (d > maxIdPost) {
                 maxIdPost = d;
             }
@@ -47,10 +47,9 @@ public class Task2 {
 
         HttpResponse<String> response2 = // HTTP-ответ.
                 CLIENT.send(request2, HttpResponse.BodyHandlers.ofString());
-        String nameFile = "C:\\workspace\\module13\\src\\Task2\\user-" + id + "-post-" + maxIdPost + "-comments.json";
+        String nameFile = "C:\\workspace\\module_13\\src\\user-" + id + "-post-" + maxIdPost + "-comments.json";
         File file = new File(nameFile);
-        try (FileWriter writer = new FileWriter(file))
-        {
+        try (FileWriter writer = new FileWriter(file)) {
             writer.write(response2.body());
             writer.flush();
         } catch (IOException e) {

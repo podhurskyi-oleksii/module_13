@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -11,7 +12,7 @@ public class Task1 {
     private static final Gson GSON = new Gson();
 
     public static User sendPost(String url, User user) throws IOException, InterruptedException {
-        URI uri = URI.create(url+ "/users");
+        URI uri = URI.create(url + "/users");
         String requestBody = User.transformToJson(user);
         HttpRequest request = HttpRequest
                 .newBuilder()
@@ -25,7 +26,7 @@ public class Task1 {
     }
 
     public static User sendPut(String url, User user) throws IOException, InterruptedException {
-        URI uri = URI.create(url+ "/posts/" + user.getId());
+        URI uri = URI.create(url + "/posts/" + user.getId());
         String requestBody = GSON.toJson(user);
         HttpRequest request = HttpRequest
                 .newBuilder()
@@ -52,7 +53,7 @@ public class Task1 {
     }
 
     public static ArrayList<User> sendGet(String url) throws IOException, InterruptedException {
-        URI uri = URI.create(url+ "/users");
+        URI uri = URI.create(url + "/users");
         HttpRequest request = HttpRequest
                 .newBuilder()
                 .uri(uri)
@@ -62,18 +63,18 @@ public class Task1 {
         HttpResponse<String> response =
                 CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
 
-        String test = response.body().substring(1, response.body().length()-1);
+        String test = response.body().substring(1, response.body().length() - 1);
         ArrayList<User> result = new ArrayList<>();
 
         while (test.length() > 1) {
             int st = test.indexOf('{');
             int a = test.indexOf('}');
-            int b = test.indexOf('}', a+1);
-            int c = test.indexOf('}', b+1);
-            int d = test.indexOf('}', c+1);
-            String s = test.substring(st, d+1);
+            int b = test.indexOf('}', a + 1);
+            int c = test.indexOf('}', b + 1);
+            int d = test.indexOf('}', c + 1);
+            String s = test.substring(st, d + 1);
             result.add(User.transformToClass(s));
-            test = test.substring(d+1);
+            test = test.substring(d + 1);
         }
         return result;
     }
